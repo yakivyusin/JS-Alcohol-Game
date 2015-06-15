@@ -19,6 +19,9 @@ function search() {
         dataType: 'json',
         success: function (data) {
             processData(scriptName+".js",data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            showError(xhr.status);
         }
     });
 }
@@ -32,4 +35,13 @@ function processData(searchName, data) {
             return false;
         }
     });
+}
+
+function showError(status) {
+    if (status == 403) {
+        document.getElementById("result").innerHTML = "Превышен лимит запросов, зайди позже";
+    }
+    else {
+        document.getElementById("result").innerHTML = "Упс, какая-то ошибка";
+    }
 }
